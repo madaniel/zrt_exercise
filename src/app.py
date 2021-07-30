@@ -9,4 +9,4 @@ args = parser.parse_args()
 if __name__ == '__main__':
     # User input is taken from config.yaml
     anagram_generator = AnagramGenerator(config_file=args.config_file)
-    print(anagram_generator.result, end='')
+    print(anagram_generator.get_result(), end='')
