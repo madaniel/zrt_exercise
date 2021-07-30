@@ -1,0 +1,5 @@
+# Default ignored files
+.git
+.idea
+*.pyc
+/venv
