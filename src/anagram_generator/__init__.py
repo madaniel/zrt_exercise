@@ -1,0 +1,1 @@
+from anagram_generator.anagram_generator_module import AnagramGenerator

@@ -1,0 +1,6 @@
+# You may change the words in the list as needed
+words_list: ['dog', 'cat', 'disk', 'bottle', 'god', 'kids']
+
+# Available languages ['en_BW', 'en_AU', 'en_BZ', 'en_GB', 'en_JM', 'en_DK', 'en_HK', 'en_GH', 'en_US', 'en_ZA',
+#                      'en_ZW', 'en_SG', 'en_NZ', 'en_BS', 'en_AG', 'en_PH', 'en_IE', 'en_NA', 'en_TT', 'en_IN', 'en_NG', 'en_CA']
+language: 'en_US'
