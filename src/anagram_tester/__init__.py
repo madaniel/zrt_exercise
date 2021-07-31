@@ -1,0 +1,1 @@
+from src.anagram_tester.anagram_tester_module import AnagramTester
