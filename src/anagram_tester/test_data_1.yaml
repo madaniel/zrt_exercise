@@ -1,0 +1,3 @@
+language: 'en_US'
+words_list: ['meat', 'soup', 'wood', 'dad']
+result: [['tame','team','meta','mate','meat'], ['soup','opus'], ['wood'], ['dad','add']]

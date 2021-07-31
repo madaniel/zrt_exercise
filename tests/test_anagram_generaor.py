@@ -5,7 +5,7 @@ from src.anagram_generator.anagram_generator_module import AnagramGenerator
 
 @pytest.fixture(scope='module')
 def anagram_generator():
-    anagram_generator = AnagramGenerator(None)
+    anagram_generator = AnagramGenerator()
     yield anagram_generator
     print("done")
 

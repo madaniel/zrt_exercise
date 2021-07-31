@@ -1,7 +1,7 @@
 import itertools
 import enchant
 from pathlib import Path
-from src.infra import YamlReader
+from src.infra import YamlHandler
 from src.infra import Logger
 
 # Defines
@@ -10,12 +10,13 @@ CONFIG_FILENAME = 'config.yaml'
 
 class AnagramGenerator(object):
 
-    def __init__(self, config_file):
-        self.logger = Logger(module_name=self.__class__.__name__)
+    def __init__(self, config_file=None):
         config_file = CONFIG_FILENAME if config_file is None else config_file
-        self.config_file = YamlReader(yaml_file=Path(__file__).parent / config_file)
-        self.requested_word_list = self.config_file['words_list']
-        self.word_checker = enchant.Dict(self.config_file['language'])
+        self.logger = Logger(module_name=self.__class__.__name__)
+        self.yaml_handler = YamlHandler(yaml_file=Path(__file__).parent / config_file)
+        self.data = self.yaml_handler.get_data()
+        self.requested_word_list = self.data['words_list']
+        self.word_checker = enchant.Dict(self.data['language'])
         self.generated_words_buffer = set([])
 
     def __repr__(self):
@@ -30,6 +31,7 @@ class AnagramGenerator(object):
         :param word: word to generate permutation from
         :return: list of permutations
         """
+        word = word.replace('-', ' ')  # Remove hyphen
         all_permutations = ["".join(word) for word in itertools.permutations(word)]
         self.logger.debug(f"permutations for {word}: {all_permutations}")
         return all_permutations
@@ -67,6 +69,9 @@ class AnagramGenerator(object):
         self.logger.debug(f"all_language_words: {all_language_words}")
         return all_language_words
 
+    def clear_buffer(self):
+        self.generated_words_buffer = set([])
+
     def get_result(self) -> str:
         """
         Final result of the anagram words
@@ -77,4 +82,5 @@ class AnagramGenerator(object):
         # Filter the empty lists
         output_filtered = [word_list for word_list in output if word_list]
         result = "".join(self._apply_output_format(output_filtered))
+        self.clear_buffer()
         return result
