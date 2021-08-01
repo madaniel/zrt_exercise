@@ -1,0 +1,71 @@
+@startuml Anagram Generator Application
+
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+skinparam ArrowColor Chartreuse
+skinparam dpi 200
+
+package enchant {
+}
+
+package pyyaml {
+}
+
+package infra {
+
+    class Logger 
+    
+    class YamlHandler {
+        + get_data()
+        + write_data()
+    }
+    pyyaml *-- YamlHandler
+
+}
+
+package anagram_generator {
+    
+    class AnagramGenerator {
+       + self.logger
+       + self.yaml_handler
+       + self.data
+       + self.requested_word_list
+       + self.word_checker
+       + self.generated_words_buffer
+       - _get_all_permutations()
+       - _apply_output_format()
+       - _get_all_anagrams()
+       - _get_all_language_words()
+       - clear_buffer()
+       + get_result()
+    }
+    Logger *-- AnagramGenerator
+    YamlHandler *-- AnagramGenerator
+    enchant *-- AnagramGenerator
+}
+
+package anagram_tester {
+
+    class AnagramTester {
+        + self.app_runner
+        - self.logger
+        + get_test_data_file()
+        + check_output()
+        + test_app()
+    }
+    YamlHandler *-- AnagramTester
+    ApplicationRunner *-- AnagramTester
+
+    class ApplicationRunner {
+        + self.app
+        + self.config_file
+        + self.output
+        + run()
+        + get_output()        
+    }
+
+}
+
+
+@enduml
